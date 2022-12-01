@@ -1,4 +1,4 @@
-const { User, Thought } = require("../models");
+const { User } = require("../models");
 const { StatusCodes } = require("http-status-codes");
 
 const createUser = async (req, res) => {
