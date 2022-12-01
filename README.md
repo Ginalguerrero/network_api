@@ -2,12 +2,11 @@
 
 ## Description 
 
-As a developer, ypu'll need a place not only to share your projects while you're applying for jobs or working as freelancer but also to share your work with other developers and collaborate on projects.
-The goal of this project is to create a portfolio using your new React skills, which will help set you apart from other developers whose portfolios don’t use the latest technologies.
+This challenge is to build an API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list. The app should be able to use Express.js for routing, a MongoDB database, and the Mongoose ODM. In addition to using the Express.js Links to an external site.and Mongoose Links to an external site.packages, you may also optionally use a JavaScript date library of your choice or the native JavaScript Date object to format timestamps.
 
 ## Usage
-``create-react-app``
+No sql database 
+Mongodb
+Insomnia 
 
-`` ## Code Snippet: ``
-
-`` ## Demo``
+## Test 
