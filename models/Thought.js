@@ -4,6 +4,10 @@ const { schema: reactionSchema } = require("./Reaction.js");
 
 const schema = new Schema(
   {
+    thoughtId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
     thoughtText: {
       type: String,
       required: true,
@@ -26,7 +30,6 @@ const schema = new Schema(
       virtuals: true,
       getters: true,
     },
-    _id: false
   }
 );
 

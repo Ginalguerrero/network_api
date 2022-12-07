@@ -1,4 +1,4 @@
-const { Thought } = require("../models");
+const Thought = require("../models/Thought.js");
 const { StatusCodes } = require("http-status-codes");
 
 const getThought = async (req, res) => {

@@ -26,9 +26,8 @@ const schema = new Schema(
   {
     toJSON: {
       getters: true,
-    },
-    _id: false,
+    }
   }
 );
 
-module.exports = schema;
+module.exports = { schema };

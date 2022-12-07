@@ -1,9 +1,9 @@
-const { User } = require("../models");
+const User = require("../models/User.js");
 const { StatusCodes } = require("http-status-codes");
 
 const createUser = async (req, res) => {
   try {
-    const user = await User.create(req.body);
+    const user = await User.create(req.body).exec();
     res.status(StatusCodes.CREATED).json(user);
   } catch (err) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
@@ -66,15 +66,19 @@ const updateUser = async (req, res) => {
         .status(StatusCodes.NOT_FOUND)
         .json({ error: "No user found with that ID" });
     } else res.status(StatusCodes.OK).json({ user });
-  } catch (err){
+  } catch (err) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
   }
 };
 
 const addFriend = async (req, res) => {
-  const {userId, friendId} = req.params;
+  const { userId, friendId } = req.params;
   try {
-    const user = await User.findOneAndUpdate({_id: userId}, {$addToSet: {friends: friendId}}, {runValidators: true, new: true})
+    const user = await User.findOneAndUpdate(
+      { _id: userId },
+      { $addToSet: { friends: friendId } },
+      { runValidators: true, new: true }
+    );
     if (!user) {
       res
         .status(StatusCodes.NOT_FOUND)
@@ -83,12 +87,16 @@ const addFriend = async (req, res) => {
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
   }
-}
+};
 
 const removeFriend = async (req, res) => {
-  const {userId, friendId} = req.params;
+  const { userId, friendId } = req.params;
   try {
-    const user = await User.findOneAndUpdate({_id: userId}, {$pull: {friends: friendId}}, {runValidators: true, new: true})
+    const user = await User.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { friends: friendId } },
+      { runValidators: true, new: true }
+    );
     if (!user) {
       res
         .status(StatusCodes.NOT_FOUND)
@@ -97,6 +105,14 @@ const removeFriend = async (req, res) => {
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
   }
-}
+};
 
-module.exports = {createUser, getUser, getUsers, deleteUser, updateUser, addFriend, removeFriend}
+module.exports = {
+  createUser,
+  getUser,
+  getUsers,
+  deleteUser,
+  updateUser,
+  addFriend,
+  removeFriend,
+};

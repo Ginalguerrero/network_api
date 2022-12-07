@@ -1,9 +1,13 @@
-const { Schema, model } = require("mongoose");
+const { Schema, Types, model } = require("mongoose");
 
 const { ObjectId } = Schema.Types;
 
 const schema = new Schema(
   {
+    _id: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
     username: {
       type: String,
       required: true,
@@ -19,19 +23,18 @@ const schema = new Schema(
         "Please fill a valid email address",
       ],
     },
-    friends: [{ ref: "thought", type: ObjectId }],
-    thoughts: [{ ref: "user", type: ObjectId }],
+    friends: [{ ref: "user", type: ObjectId }],
+    thoughts: [{ ref: "thought", type: ObjectId }],
   },
   {
     toJSON: {
       virtuals: true,
       getters: true,
     },
-    _id: false
   }
 );
 
-userSchema.virtual("friendCount").get(function () {
+schema.virtual("friendCount").get(function () {
   return this.friends.length;
 });
 

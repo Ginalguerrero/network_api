@@ -18,4 +18,4 @@ router
   .route("/:thoughtId/reactions/:reactionId")
   .delete(thoughtController.removeReaction);
 
-module.exports = router;
+module.exports = { router };

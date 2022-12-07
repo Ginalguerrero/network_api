@@ -3,9 +3,9 @@ const express = require("express");
 const db = require("./config/conn");
 const routes = require("./routes");
 
-const PORT = 3001;
+const PORT = 4123;
 const app = express();
-const {urlencoded, json} = express;
+const { urlencoded, json } = express;
 app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(routes);
