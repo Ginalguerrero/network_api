@@ -1,10 +1,10 @@
 const dayjs = require("dayjs");
-const { Schema, model } = require("mongoose");
+const { Schema, Types, model } = require("mongoose");
 const { schema: reactionSchema } = require("./Reaction.js");
 
 const schema = new Schema(
   {
-    thoughtId: {
+    _id: {
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
     },
@@ -17,7 +17,6 @@ const schema = new Schema(
     createdAt: {
       type: Date,
       default: dayjs(),
-      get: (date) => date.format("MM/DD/YYYY - HH:mm"),
     },
     username: {
       type: String,
