@@ -3,30 +3,32 @@ const { StatusCodes } = require("http-status-codes");
 
 const getThought = async (req, res) => {
   try {
-    const thought = await Thought.findOne({ _id: req.param.thoughtId });
+    const thought = await Thought.findOne({ _id: req.params.thoughtId });
+    console.log(thought);
     if (!thought) {
       res
         .status(StatusCodes.NOT_FOUND)
         .json({ error: "No thought found with that ID" });
     } else res.status(StatusCodes.OK).json({ thought });
   } catch (error) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 };
 
 const getThoughts = async (req, res) => {
   try {
-    const thought = await Thought.find();
-    res.status(StatusCodes.OK).json({ thought });
+    const thoughts = await Thought.find();
+
+    res.status(StatusCodes.OK).json(thoughts);
   } catch (error) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 };
 
 const deleteThought = async (req, res) => {
   try {
     const thought = await Thought.findOneAndRemove({
-      _id: req.param.thoughtId,
+      _id: req.params.thoughtId,
     });
     if (!thought) {
       res
@@ -37,14 +39,14 @@ const deleteThought = async (req, res) => {
         .status(StatusCodes.OK)
         .json({ message: "Thought successfully removed" });
   } catch (error) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 };
 
 const updateThought = async (req, res) => {
   try {
     const thought = await Thought.findOneAndUpdate(
-      { _id: req.param.thoughtId },
+      { _id: req.params.thoughtId },
       { $set: { thoughtText: req.body.thoughtText } },
       { runValidators: true, new: true }
     );
@@ -57,12 +59,12 @@ const updateThought = async (req, res) => {
         .status(StatusCodes.OK)
         .json({ message: "Thought successfully updated" });
   } catch (error) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 };
 const createThought = async (req, res) => {
   try {
-    const thought = await Thought.create(req.body);
+    const thought = await Thought.create(req.body).exec();
     const updatedUser = await User.findOneAndUpdate(
       { username: req.body.username },
       { $push: { thoughts: thought._id } },
@@ -77,7 +79,7 @@ const createThought = async (req, res) => {
         .status(StatusCodes.OK)
         .json({ message: "Thought successfully created" });
   } catch (error) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 };
 
@@ -95,7 +97,7 @@ const removeReaction = async (req, res) => {
         .json({ error: "No thought found with that ID" });
     } else res.status(StatusCodes.OK).json({ thought });
   } catch (error) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 };
 
@@ -112,7 +114,7 @@ const createReaction = async (req, res) => {
         .json({ error: "No thought found with that ID" });
     } else res.status(StatusCodes.OK).json({ thought });
   } catch (error) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 };
 module.exports = {

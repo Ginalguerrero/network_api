@@ -3,7 +3,7 @@ const { Schema, Types } = require("mongoose");
 
 const schema = new Schema(
   {
-    reactionId: {
+    _id: {
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
     },
@@ -16,7 +16,6 @@ const schema = new Schema(
     createdAt: {
       type: Date,
       default: dayjs(),
-      get: (date) => date.format("MM/DD/YYYY - HH:mm"),
     },
     username: {
       type: String,
@@ -26,7 +25,7 @@ const schema = new Schema(
   {
     toJSON: {
       getters: true,
-    }
+    },
   }
 );
 
